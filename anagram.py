@@ -22,19 +22,18 @@ Let's use a file of words where each line is a word:
 def find_most_anagrams_from_wordlist(wordlist):
     """Given list of words, return the word with the most anagrams."""
 
-    # alphabetize the list
-    # maybe make a dictionary with original words as keys, then value
-    # is the alphabetized list
-    
     dictionary = {}
 
     for word in wordlist:
-        dictionary[word] = [''.join(sorted(word)), 0]
+        word = word.strip()
+        alpha = ''.join(sorted(word))
+        if dictionary.get(alpha):
+            dictionary[alpha].append(word)
+        else:
+            dictionary[alpha] = [word]
 
-    # for word, alpha_word in dictionary.items():
-    #     dictionary[word][1] = dictionary.values().count(alpha_word) 
+    return max(dictionary.values(), key=len)[0]
 
-    print dictionary
 
 if __name__ == "__main__":
     import doctest
